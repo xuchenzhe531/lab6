@@ -34,13 +34,14 @@ public class MainActivity extends FragmentActivity {
         mapFragment.getMapAsync(googleMap -> {
             mMap = googleMap;
             googleMap.addMarker(new MarkerOptions().position(mDestinationLatLng).title("Destination"));
+            displayMyLocation();
         });
         mFusedLocationProviderClient = LocationServices.getFusedLocationProviderClient(this);
     }
     private void displayMyLocation(){
         int permission = ActivityCompat.checkSelfPermission(this.getApplicationContext(), Manifest.permission.ACCESS_FINE_LOCATION);
         if(permission== PackageManager.PERMISSION_DENIED){
-            ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.ACCESS_FINE_LOCATION},PERMISSIONS_REQUEST_ACCESS_FINE_LOCATION);
+            ActivityCompat.requestPermissions(this, new String[]{android.Manifest.permission.ACCESS_FINE_LOCATION},PERMISSIONS_REQUEST_ACCESS_FINE_LOCATION);
         }else{
             mFusedLocationProviderClient.getLastLocation().addOnCompleteListener(this,task ->{
                 Location mLastKnownLocation = task.getResult();
